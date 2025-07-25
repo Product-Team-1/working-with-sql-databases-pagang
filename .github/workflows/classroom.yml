@@ -1,0 +1,131 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Task 1. Create a table called user_data with the following values.
+      id: task-1-create-a-table-called-user_data-with-the-following-values
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 1. Create a table called user_data with the following values.
+        setup-command: ''
+        command: bash tests/test1.sh
+        input: ''
+        expected-output: "✅ Test Passed: Table created and data inserted correctly"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 2. Modify Alex Smith’s age to 30.
+      id: task-2-modify-alex-smith-s-age-to-30
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 2. Modify Alex Smith’s age to 30.
+        setup-command: ''
+        command: bash tests/test2.sh
+        input: ''
+        expected-output: "✅ Test Passed: Age updated correctly for Alex Smith"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 3. Delete Taylor’s record from the table.
+      id: task-3-delete-taylor-s-record-from-the-table
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 3. Delete Taylor’s record from the table.
+        setup-command: ''
+        command: bash tests/test3.sh
+        input: ''
+        expected-output: "✅ Test Passed: User 'Taylor Brown' deleted successfully"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 4. Retrieve only the Account_Name column of data from the table.
+      id: task-4-retrieve-only-the-account_name-column-of-data-from-the-table
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 4. Retrieve only the Account_Name column of data from the
+          table.
+        setup-command: ''
+        command: bash tests/test4.sh
+        input: ''
+        expected-output: "✅ Test Passed: Correct Account_Names retrieved"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 5. Retrieve all the records where the number of followers is less
+        than 300.
+      id: task-5-retrieve-all-the-records-where-the-number-of-followers-is-less-than-300
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 5. Retrieve all the records where the number of followers
+          is less than 300.
+        setup-command: ''
+        command: bash tests/test5.sh
+        input: ''
+        expected-output: "✅ Test Passed: Correct records with Followers < 300 retrieved"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 6. Retrieve all the records of male users.
+      id: task-6-retrieve-all-the-records-of-male-users
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 6. Retrieve all the records of male users.
+        setup-command: ''
+        command: bash tests/test6.sh
+        input: ''
+        expected-output: "✅ Test Passed: Correct records with Gender = 'Male' retrieved"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 7. Retrieve the records of users whose account name starts with “s”.
+      id: task-7-retrieve-the-records-of-users-whose-account-name-starts-with-s
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 7. Retrieve the records of users whose account name starts
+          with “s”.
+        setup-command: ''
+        command: bash tests/test7.sh
+        input: ''
+        expected-output: "✅ Test Passed: Correct Account_Names starting with 's' retrieved"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 8. Retrieve all the records where the number of likes is more than
+        500 and number of posts is more than 80.
+      id: task-8-retrieve-all-the-records-where-the-number-of-likes-is-more-than-500-and-number-of-posts-is-more-than-80
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 8. Retrieve all the records where the number of likes is more
+          than 500 and number of posts is more than 80.
+        setup-command: ''
+        command: bash tests/test8.sh
+        input: ''
+        expected-output: "✅ Test Passed: Correct records with Likes > 500 AND Posts
+          > 80 retrieved"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TASK-1-CREATE-A-TABLE-CALLED-USER_DATA-WITH-THE-FOLLOWING-VALUES_RESULTS: "${{steps.task-1-create-a-table-called-user_data-with-the-following-values.outputs.result}}"
+        TASK-2-MODIFY-ALEX-SMITH-S-AGE-TO-30_RESULTS: "${{steps.task-2-modify-alex-smith-s-age-to-30.outputs.result}}"
+        TASK-3-DELETE-TAYLOR-S-RECORD-FROM-THE-TABLE_RESULTS: "${{steps.task-3-delete-taylor-s-record-from-the-table.outputs.result}}"
+        TASK-4-RETRIEVE-ONLY-THE-ACCOUNT_NAME-COLUMN-OF-DATA-FROM-THE-TABLE_RESULTS: "${{steps.task-4-retrieve-only-the-account_name-column-of-data-from-the-table.outputs.result}}"
+        TASK-5-RETRIEVE-ALL-THE-RECORDS-WHERE-THE-NUMBER-OF-FOLLOWERS-IS-LESS-THAN-300_RESULTS: "${{steps.task-5-retrieve-all-the-records-where-the-number-of-followers-is-less-than-300.outputs.result}}"
+        TASK-6-RETRIEVE-ALL-THE-RECORDS-OF-MALE-USERS_RESULTS: "${{steps.task-6-retrieve-all-the-records-of-male-users.outputs.result}}"
+        TASK-7-RETRIEVE-THE-RECORDS-OF-USERS-WHOSE-ACCOUNT-NAME-STARTS-WITH-S_RESULTS: "${{steps.task-7-retrieve-the-records-of-users-whose-account-name-starts-with-s.outputs.result}}"
+        TASK-8-RETRIEVE-ALL-THE-RECORDS-WHERE-THE-NUMBER-OF-LIKES-IS-MORE-THAN-500-AND-NUMBER-OF-POSTS-IS-MORE-THAN-80_RESULTS: "${{steps.task-8-retrieve-all-the-records-where-the-number-of-likes-is-more-than-500-and-number-of-posts-is-more-than-80.outputs.result}}"
+      with:
+        runners: task-1-create-a-table-called-user_data-with-the-following-values,task-2-modify-alex-smith-s-age-to-30,task-3-delete-taylor-s-record-from-the-table,task-4-retrieve-only-the-account_name-column-of-data-from-the-table,task-5-retrieve-all-the-records-where-the-number-of-followers-is-less-than-300,task-6-retrieve-all-the-records-of-male-users,task-7-retrieve-the-records-of-users-whose-account-name-starts-with-s,task-8-retrieve-all-the-records-where-the-number-of-likes-is-more-than-500-and-number-of-posts-is-more-than-80
