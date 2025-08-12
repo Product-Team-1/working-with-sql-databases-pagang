@@ -1,0 +1,125 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Task 1
+      id: task-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 1
+        setup-command: ''
+        command: bash tests/test1.sh
+        input: ''
+        expected-output: "✅ Test Passed: Table created and data inserted correctly"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 2
+      id: task-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 2
+        setup-command: ''
+        command: bash tests/test2.sh
+        input: ''
+        expected-output: "✅ Test Passed: Age updated correctly for Alex Smith"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 3
+      id: task-3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 3
+        setup-command: ''
+        command: bash tests/test3.sh
+        input: ''
+        expected-output: "✅ Test Passed: User 'Taylor Brown' deleted successfully"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 4
+      id: task-4
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 4
+        setup-command: ''
+        command: bash tests/test4.sh
+        input: ''
+        expected-output: "✅ Test Passed: Correct Account_Names retrieved"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 5
+      id: task-5
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 5
+        setup-command: ''
+        command: bash tests/test5.sh
+        input: ''
+        expected-output: "✅ Test Passed: Correct records with Followers < 300 retrieved"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 6
+      id: task-6
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 6
+        setup-command: ''
+        command: bash tests/test6.sh
+        input: ''
+        expected-output: "✅ Test Passed: Correct records with Gender = 'Male' retrieved"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 7
+      id: task-7
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 7
+        setup-command: ''
+        command: bash tests/test7.sh
+        input: ''
+        expected-output: "✅ Test Passed: Correct Account_Names starting with 's' retrieved"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Task 8
+      id: task-8
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Task 8
+        setup-command: ''
+        command: bash tests/test8.sh
+        input: ''
+        expected-output: "✅ Test Passed: Correct records with Likes > 500 AND Posts
+          > 80 retrieved"
+        comparison-method: exact
+        timeout: 1
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TASK-1_RESULTS: "${{steps.task-1.outputs.result}}"
+        TASK-2_RESULTS: "${{steps.task-2.outputs.result}}"
+        TASK-3_RESULTS: "${{steps.task-3.outputs.result}}"
+        TASK-4_RESULTS: "${{steps.task-4.outputs.result}}"
+        TASK-5_RESULTS: "${{steps.task-5.outputs.result}}"
+        TASK-6_RESULTS: "${{steps.task-6.outputs.result}}"
+        TASK-7_RESULTS: "${{steps.task-7.outputs.result}}"
+        TASK-8_RESULTS: "${{steps.task-8.outputs.result}}"
+      with:
+        runners: task-1,task-2,task-3,task-4,task-5,task-6,task-7,task-8
